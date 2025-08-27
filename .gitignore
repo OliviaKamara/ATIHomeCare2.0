@@ -1,0 +1,16 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# JetBrains / WebStorm
+.idea/
+
+# JetBrains Database Tools helpers
+data/
+schema/
+schema.layouts/
+
+# Future build stuff
+node_modules/
+dist/
+build/
