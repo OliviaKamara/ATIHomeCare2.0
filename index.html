@@ -7,11 +7,16 @@
             name="description"
             content="Assistance To Independence Home Care Services provides in home health care to the elderly and disabled individuals in the Tri-City area in Michigan."
     />
-    <meta name="author" content="Olivia Kamara | CODESS.DEV" />
+    <meta name="author" content="CODESS | WWW.CODESS.DEV" />
     <meta
             name="keywords"
             content="ATI, Assistance To Independence, Home Care, Home Health Care, Midland, Michigan, Saginaw, Michigan, Bay City, Michigan, elder care, disability care"
     />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Home Health Care in Midland, Saginaw & Bay City, MI">
+    <meta property="og:description" content="Personal, dignified in-home care across the Tri-City area. Call (989) 898-7941.">
+
+
 
     <!-- optional: add your favicon file into /Images and point to it -->
     <!-- <link rel="icon" href="./Images/favicon.png" /> -->
@@ -26,14 +31,30 @@
 
 
 
-    <title>Assistance To Independence Home Care</title>
+    <title>Home Health Care in Midland, Saginaw & Bay City, MI | Assistance To Independence</title>
+    <meta name="description" content="Personal, dignified in-home care across Midland, Saginaw, and Bay City. Community living supports, respite, senior care, special needs, and accident/injury care. Call (989) 898-7941." />
+    <link rel="canonical" href="https://www.atihomecare.com/" />
+
 </head>
+<link rel="icon" type="image/x-icon" href="./favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./android-chrome-512x512.png">
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#1a7914">
 <body class="page">
 <div class="topbar">
     <div class="container topbar__row">
         <div class="topbar__left">
-            <span aria-hidden="true">📍</span>711 Bayliss St, Midland, MI
+            <a class="map-jump"
+               data-map-address="711 Bayliss St, Midland, MI 48640"
+               href="https://www.google.com/maps/search/?api=1&query=711+Bayliss+St,+Midland,+MI+48640">
+                <span aria-hidden="true">📍</span>711 Bayliss St, Midland, MI
+            </a>
         </div>
+
         <div class="topbar__right">
             <a href="mailto:tmusselman@atihomecare.com">tmusselman@atihomecare.com</a>
             <span class="dot">•</span>
@@ -68,10 +89,12 @@
 
     <div class="container hero__content">
         <h1>
-            We <span class="accent">Enhance</span><br>
-            Quality of Life in the<br>
+            <span class="sr-only">Home Health Care in Midland, Saginaw & Bay City, MI — </span>
+            We <span class="accent">Enhance</span><br/>
+            Quality of Life in the<br/>
             Comfort of Home
         </h1>
+
         <p>
             Personal, dignified in-home care that helps you or your loved one live well, safely, and independently.
         </p>
@@ -159,7 +182,10 @@
                 <h4 class="contact__card-title">Main Office</h4>
                 <ul class="contact__list">
                     <li class="contact__item"><span class="contact__icon" aria-hidden="true">📍</span>
-                        <div>711 Bayliss St.<br>Midland, MI 48640</div>
+                        <address class="contact__addr">
+                            711 Bayliss St.<br>Midland, MI 48640
+                        </address>
+
                     </li>
                     <li class="contact__item"><span class="contact__icon" aria-hidden="true">📞</span>
                         <a href="tel:19898987941">(989) 898-7941</a>
@@ -182,9 +208,6 @@
                     <li class="contact__item"><span class="contact__icon" aria-hidden="true">✉️</span>
                         <a href="mailto:tmusselman@atihomecare.com">tmusselman@atihomecare.com</a>
                     </li>
-                    <li class="contact__item"><span class="contact__icon" aria-hidden="true">📱</span>
-                        <a href="tel:19894001158">(989) 400-1158</a>
-                    </li>
                 </ul>
                 <div class="contact__cta">
                     <a class="btn btn--primary" href="mailto:tmusselman@atihomecare.com">Email Tamara</a>
@@ -192,43 +215,67 @@
                 </div>
             </div>
         </div>
-        <figure class="contact__map" aria-label="Map to 711 Bayliss St, Midland, MI">
+        <figure class="contact__map" aria-label="Map to 711 Bayliss St, Midland, MI"
+                data-map-address="711 Bayliss St, Midland, MI 48640">
             <iframe
                     title="ATI Home Care — 711 Bayliss St, Midland, MI"
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"
                     src="https://www.google.com/maps?q=711+Bayliss+St,+Midland,+MI+48640&output=embed">
             </iframe>
+
+            <!-- full-coverage, accessible click target -->
+            <button class="contact__map-link" aria-label="Open in your maps app">
+                <span class="contact__map-hint">Open in Maps</span>
+            </button>
+
+            <!-- No-JS fallback -->
+            <noscript>
+                <a class="contact__map-fallback"
+                   href="https://www.google.com/maps/search/?api=1&query=711+Bayliss+St,+Midland,+MI+48640"
+                   target="_blank" rel="noopener">Open in Maps</a>
+            </noscript>
         </figure>
+
     </div>
 </section>
 <!-- Organization schema -->
 <script type="application/ld+json">
     {
-        "@context":"https://schema.org",
-        "@type":"Organization",
-        "name":"Assistance To Independence Home Care Services",
-        "url":"https://www.atihomecare.com",
-        "email":"tmusselman@atihomecare.com",
-        "telephone":"+1-989-898-7941",
-        "faxNumber":"+1-989-898-7951",
-        "address":{
-            "@type":"PostalAddress",
-            "streetAddress":"711 Bayliss St.",
-            "addressLocality":"Midland",
-            "addressRegion":"MI",
-            "postalCode":"48640",
-            "addressCountry":"US"
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Assistance To Independence Home Care Services",
+        "url": "https://www.atihomecare.com",
+        "image": "https://www.atihomecare.com/images/logowhite.png",
+        "telephone": "+1-989-898-7941",
+        "faxNumber": "+1-989-898-7951",
+        "email": "tmusselman@atihomecare.com",
+        "priceRange": "$$",
+        "areaServed": ["Midland MI","Saginaw MI","Bay City MI","Tri-Cities MI"],
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "711 Bayliss St.",
+            "addressLocality": "Midland",
+            "addressRegion": "MI",
+            "postalCode": "48640",
+            "addressCountry": "US"
         },
-        "contactPoint":[{
-            "@type":"ContactPoint",
-            "contactType":"Executive Director",
-            "name":"Tamara Musselman",
-            "email":"tmusselman@atihomecare.com",
-            "telephone":"+1-989-400-1158"
-        }]
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 43.62119,
+            "longitude": -84.22242
+        },
+        "hasMap": "https://www.google.com/maps?q=711+Bayliss+St,+Midland,+MI+48640",
+        "openingHoursSpecification": [{
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+            "opens": "09:00",
+            "closes": "17:00"
+        }],
+        "sameAs": []
     }
 </script>
+
 <footer class="site-footer">
     <div class="footer-container">
         <p>© 2025 Assistance to Independence</p>

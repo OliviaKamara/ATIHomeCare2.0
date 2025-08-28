@@ -246,6 +246,28 @@ body, p { font-family: "Lora", serif; }
         background: rgba(26, 121, 20, .06);
     }
 
+/* a11y helper for hidden, screen-reader-only text */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,1px,1px);white-space:nowrap;border:0;}
+
+/* mobile-friendly padding for hero text */
+@media (max-width: 600px){
+    .hero__content {
+        padding: 0 1.25rem;   /* add left/right padding */
+        left: 0;              /* reset the manual left:30px */
+        text-align: left;   /* optional: center align on mobile */
+    }
+
+    .hero h1 {
+        font-size: 40px;      /* scale down headline */
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 20px;
+    }
+
+
+}
 
     /* Layout: content + (optional) image */
 
@@ -706,6 +728,35 @@ body, p { font-family: "Lora", serif; }
         position: relative;
         display: inline-block;
     }
+.contact__map { position: relative; }
+.contact__map-link{
+    position: absolute; inset: 0;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; z-index: 2;
+}
+
+/* optional little pill hint in the corner */
+.contact__map-hint{
+    position: absolute; right: .5rem; bottom: .5rem;
+    font-size: .85rem; line-height: 1;
+    background: rgba(26,121,20,.92); color: #fff;
+    padding: .45rem .6rem; border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.18);
+    pointer-events: none;
+}
+
+/* keyboard focus ring */
+.contact__map-link:focus-visible{
+    outline: 3px solid rgba(26,121,20,.7);
+    outline-offset: 3px;
+}
+
+/* fallback link (noscript) */
+.contact__map-fallback{
+    position: absolute; right: .5rem; bottom: .5rem; z-index: 3;
+    background: rgba(26,121,20,.92); color:#fff; text-decoration:none;
+    padding:.45rem .6rem; border-radius:999px; font-size:.85rem;
+}
 
     @media (prefers-reduced-motion: no-preference) {
         .contact__title::after {

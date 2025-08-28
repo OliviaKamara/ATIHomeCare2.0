@@ -151,3 +151,78 @@ document.addEventListener('DOMContentLoaded', () => {
     // clear and re-append in shuffled order
     imgs.forEach(img => mosaic.appendChild(img));
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const mapFigure = document.querySelector('.contact__map');
+    if (!mapFigure) return;
+
+    const address = mapFigure.getAttribute('data-map-address')?.trim() || '711 Bayliss St, Midland, MI 48640';
+    const button = mapFigure.querySelector('.contact__map-link');
+
+    function mapURLForDevice(addr){
+        const ua = navigator.userAgent || navigator.vendor || '';
+        const isAndroid = /Android/i.test(ua);
+        // "iPhone|iPad|iPod" covers iOS. On modern iPadOS Safari UA may include "Mac" but has touch;
+        const isIOS = /iPhone|iPad|iPod/i.test(ua) || (/(Macintosh)/.test(ua) && 'ontouchend' in document);
+
+        if (isAndroid) {
+            // Opens default Maps app on Android
+            return `geo:0,0?q=${encodeURIComponent(addr)}`;
+        }
+        if (isIOS) {
+            // Uses Apple Maps (default on iOS)
+            return `https://maps.apple.com/?q=${encodeURIComponent(addr)}`;
+        }
+        // Desktop (or anything else): open Google Maps in a new tab
+        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`;
+    }
+
+    button?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const url = mapURLForDevice(address);
+
+        // On desktop we prefer a new tab so they keep the site open
+        if (url.startsWith('http')) {
+            window.open(url, '_blank', 'noopener');
+        } else {
+            // geo: scheme should replace the page on mobile so the app can take over
+            window.location.href = url;
+        }
+    });
+
+    // Keyboard accessibility (Enter/Space already works on <button>)
+});
+// Shared helper
+window.mapURLForDevice ||= function mapURLForDevice(addr){
+    const ua = navigator.userAgent || navigator.vendor || '';
+    const isAndroid = /Android/i.test(ua);
+    const isIOS = /iPhone|iPad|iPod/i.test(ua) || (/(Macintosh)/.test(ua) && 'ontouchend' in document);
+
+    if (isAndroid) return `geo:0,0?q=${encodeURIComponent(addr)}`;
+    if (isIOS)     return `https://maps.apple.com/?q=${encodeURIComponent(addr)}`;
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`;
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    // contact map overlay
+    const mapFigure = document.querySelector('.contact__map');
+    if (mapFigure) {
+        const addr = mapFigure.getAttribute('data-map-address')?.trim() || '711 Bayliss St, Midland, MI 48640';
+        const button = mapFigure.querySelector('.contact__map-link');
+        button?.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = window.mapURLForDevice(addr);
+            window.open(url, '_blank', 'noopener'); // ✅ always new tab
+        });
+    }
+
+    // topbar link
+    const topbarLink = document.querySelector('.topbar .map-jump');
+    if (topbarLink) {
+        const addr = topbarLink.getAttribute('data-map-address') || topbarLink.textContent.replace('📍','').trim();
+        topbarLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = window.mapURLForDevice(addr);
+            window.open(url, '_blank', 'noopener'); // ✅ always new tab
+        });
+    }
+});
