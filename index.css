@@ -258,7 +258,7 @@ body, p { font-family: "Lora", serif; }
     }
 
     .hero h1 {
-        font-size: 40px;      /* scale down headline */
+        font-size: 35px;      /* scale down headline */
         line-height: 1.2;
     }
 
