@@ -171,7 +171,7 @@ body, p { font-family: "Lora", serif; }
 .hero__img {
     position: absolute;
     inset: 0;
-    background: url(./images/ext1.png) center/cover no-repeat;
+    background: url(./images/ext2.png) center/cover no-repeat;
     filter: saturate(90%) contrast(95%);
     z-index: 0;
 }
