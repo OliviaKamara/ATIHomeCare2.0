@@ -1,228 +1,241 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const menu   = document.querySelector('.menu');      // <details>
-    const navbar = document.querySelector('.navbar');    // nav links container
-    const BP = 901;                                      // desktop breakpoint
+// index.js — cleaned & consolidated
 
-    function syncMenuToViewport(){
-        if (window.innerWidth >= BP) {
-            menu.open = true;   // always open on desktop
-        } else {
-            menu.open = false;  // closed by default on mobile
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    /* =======================
+       Header menu (CSS-only <details>)
+    ======================= */
+    const menu = document.querySelector('.menu');      // <details>
+    const navbar = document.querySelector('.navbar');  // nav links container
+    const BP = 901;
+
+    function syncMenuToViewport() {
+        if (!menu) return;
+        menu.open = window.innerWidth >= BP;
     }
 
-    // Close when clicking a nav link (mobile only)
-    navbar.addEventListener('click', (e) => {
-        if (window.innerWidth < BP && e.target.closest('a')) {
-            menu.open = false;
-        }
-    });
+    if (navbar && menu) {
+        navbar.addEventListener('click', (e) => {
+            if (window.innerWidth < BP && e.target.closest('a')) menu.open = false;
+        });
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth < BP && !menu.contains(e.target)) menu.open = false;
+        });
+    }
 
-    // Click outside to close (mobile only)
-    document.addEventListener('click', (e) => {
-        if (window.innerWidth < BP && !menu.contains(e.target)) {
-            menu.open = false;
-        }
-    });
-
-    // Init + keep in sync on resize
     syncMenuToViewport();
     window.addEventListener('resize', syncMenuToViewport);
-});
-// Services section: on-scroll reveals with stagger
-document.addEventListener('DOMContentLoaded', () => {
-    const servicesRoot = document.querySelector('.services');
-    if (!servicesRoot) return;
 
-    // Pick targets inside Services
-    const targets = servicesRoot.querySelectorAll(
-        '.services__heading, .services__item, .services__media, .services__cta-item'
-    );
-
-    // Add base class + stagger index
-    targets.forEach((el, i) => {
-        el.classList.add('reveal');
-        el.style.setProperty('--stagger', i);
-    });
-
-    // Respect reduced motion: instantly show
+    /* =======================
+       Scroll reveal helpers
+    ======================= */
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-        targets.forEach(el => el.classList.add('in'));
-        return;
+
+    function setupReveals(root, selectors) {
+        if (!root) return;
+        const targets = root.querySelectorAll(selectors.join(', '));
+        targets.forEach((el, i) => {
+            el.classList.add('reveal');
+            el.style.setProperty('--stagger', i);
+        });
+        if (prefersReduced) {
+            targets.forEach((el) => el.classList.add('in'));
+            return;
+        }
+        const io = new IntersectionObserver(
+            (entries, obs) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.14, rootMargin: '0px 0px -10% 0px' }
+        );
+        targets.forEach((el) => io.observe(el));
     }
 
-    // Observe and reveal once
-    const io = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in');
-                obs.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.14, rootMargin: '0px 0px -10% 0px' });
+    setupReveals(document.querySelector('.services'), [
+        '.services__heading',
+        '.services__card',
+        '.services__media',
+        '.services__cta-item'
+    ]);
 
-    targets.forEach(el => io.observe(el));
-});
-// About section: on-scroll reveals with stagger
-document.addEventListener('DOMContentLoaded', () => {
-    const aboutRoot = document.querySelector('.about');
-    if (!aboutRoot) return;
+    setupReveals(document.querySelector('.about'), [
+        '.about__eyebrow',
+        '.about__title',
+        '.about__body p',
+        '.about__pills li',
+        '.about__hero',
+        '.about__mosaic img',
+        '.about__caption'
+    ]);
 
-    // Pick targets inside About (order here controls the stagger)
-    const targets = [
-        ...aboutRoot.querySelectorAll('.about__eyebrow, .about__title'),
-        ...aboutRoot.querySelectorAll('.about__body p'),
-        ...aboutRoot.querySelectorAll('.about__pills li'),
-        // images: hero + mosaic tiles
-        ...aboutRoot.querySelectorAll('.about__hero, .about__mosaic img'),
-        // optional caption last
-        ...aboutRoot.querySelectorAll('.about__caption'),
-    ];
+    setupReveals(document.querySelector('.contact'), [
+        '.contact__eyebrow',
+        '.contact__title',
+        '.contact__intro',
+        '.contact__card',
+        '.contact__map'
+    ]);
 
-    targets.forEach((el, i) => {
-        el.classList.add('reveal');
-        el.style.setProperty('--stagger', i);
-    });
+    /* =======================
+       About mosaic: randomize
+    ======================= */
+    (function shuffleMosaic() {
+        const mosaic = document.querySelector('.about__mosaic');
+        if (!mosaic) return;
+        const imgs = Array.from(mosaic.querySelectorAll('img'));
+        for (let i = imgs.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [imgs[i], imgs[j]] = [imgs[j], imgs[i]];
+        }
+        imgs.forEach((img) => mosaic.appendChild(img));
+    })();
 
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-        targets.forEach(el => el.classList.add('in'));
-        return;
-    }
-
-    const io = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in');
-                obs.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.14, rootMargin: '0px 0px -10% 0px' });
-
-    targets.forEach(el => io.observe(el));
-});
-// Contact section: on-scroll reveal (staggered)
-document.addEventListener('DOMContentLoaded', () => {
-    const root = document.querySelector('.contact');
-    if (!root) return;
-
-    const targets = [
-        ...root.querySelectorAll('.contact__eyebrow'),
-        ...root.querySelectorAll('.contact__title'),
-        ...root.querySelectorAll('.contact__intro'),
-        ...root.querySelectorAll('.contact__card'),
-        ...root.querySelectorAll('.contact__map')
-    ];
-
-    targets.forEach((el, i) => {
-        // use same class names your CSS expects for reveal
-        el.classList.add('reveal');
-        el.style.setProperty('--stagger', i);
-    });
-
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) { targets.forEach(el => el.classList.add('in')); return; }
-
-    const io = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in');
-                obs.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.14, rootMargin: '0px 0px -10% 0px' });
-
-    targets.forEach(el => io.observe(el));
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const mosaic = document.querySelector('.about__mosaic');
-    if (!mosaic) return;
-
-    // grab all img elements inside
-    const imgs = Array.from(mosaic.querySelectorAll('img'));
-
-    // shuffle them (Fisher–Yates)
-    for (let i = imgs.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [imgs[i], imgs[j]] = [imgs[j], imgs[i]];
-    }
-
-    // clear and re-append in shuffled order
-    imgs.forEach(img => mosaic.appendChild(img));
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const mapFigure = document.querySelector('.contact__map');
-    if (!mapFigure) return;
-
-    const address = mapFigure.getAttribute('data-map-address')?.trim() || '711 Bayliss St, Midland, MI 48640';
-    const button = mapFigure.querySelector('.contact__map-link');
-
-    function mapURLForDevice(addr){
+    /* =======================
+       Maps: topbar + contact overlay
+    ======================= */
+    function mapURLForDevice(addr) {
         const ua = navigator.userAgent || navigator.vendor || '';
         const isAndroid = /Android/i.test(ua);
-        // "iPhone|iPad|iPod" covers iOS. On modern iPadOS Safari UA may include "Mac" but has touch;
         const isIOS = /iPhone|iPad|iPod/i.test(ua) || (/(Macintosh)/.test(ua) && 'ontouchend' in document);
-
-        if (isAndroid) {
-            // Opens default Maps app on Android
-            return `geo:0,0?q=${encodeURIComponent(addr)}`;
-        }
-        if (isIOS) {
-            // Uses Apple Maps (default on iOS)
-            return `https://maps.apple.com/?q=${encodeURIComponent(addr)}`;
-        }
-        // Desktop (or anything else): open Google Maps in a new tab
+        if (isAndroid) return `geo:0,0?q=${encodeURIComponent(addr)}`;
+        if (isIOS) return `https://maps.apple.com/?q=${encodeURIComponent(addr)}`;
         return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`;
     }
+    window.mapURLForDevice = window.mapURLForDevice || mapURLForDevice;
 
-    button?.addEventListener('click', (e) => {
-        e.preventDefault();
-        const url = mapURLForDevice(address);
-
-        // On desktop we prefer a new tab so they keep the site open
-        if (url.startsWith('http')) {
-            window.open(url, '_blank', 'noopener');
-        } else {
-            // geo: scheme should replace the page on mobile so the app can take over
-            window.location.href = url;
-        }
-    });
-
-    // Keyboard accessibility (Enter/Space already works on <button>)
-});
-// Shared helper
-window.mapURLForDevice ||= function mapURLForDevice(addr){
-    const ua = navigator.userAgent || navigator.vendor || '';
-    const isAndroid = /Android/i.test(ua);
-    const isIOS = /iPhone|iPad|iPod/i.test(ua) || (/(Macintosh)/.test(ua) && 'ontouchend' in document);
-
-    if (isAndroid) return `geo:0,0?q=${encodeURIComponent(addr)}`;
-    if (isIOS)     return `https://maps.apple.com/?q=${encodeURIComponent(addr)}`;
-    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`;
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-    // contact map overlay
-    const mapFigure = document.querySelector('.contact__map');
-    if (mapFigure) {
+    // Contact map overlay click
+    (function wireContactMap() {
+        const mapFigure = document.querySelector('.contact__map');
+        if (!mapFigure) return;
         const addr = mapFigure.getAttribute('data-map-address')?.trim() || '711 Bayliss St, Midland, MI 48640';
         const button = mapFigure.querySelector('.contact__map-link');
         button?.addEventListener('click', (e) => {
             e.preventDefault();
             const url = window.mapURLForDevice(addr);
-            window.open(url, '_blank', 'noopener'); // ✅ always new tab
+            if (url.startsWith('http')) window.open(url, '_blank', 'noopener');
+            else window.location.href = url;
         });
-    }
+    })();
 
-    // topbar link
-    const topbarLink = document.querySelector('.topbar .map-jump');
-    if (topbarLink) {
-        const addr = topbarLink.getAttribute('data-map-address') || topbarLink.textContent.replace('📍','').trim();
+    // Topbar address click
+    (function wireTopbarMap() {
+        const topbarLink = document.querySelector('.topbar .map-jump');
+        if (!topbarLink) return;
+        const addr = topbarLink.getAttribute('data-map-address') || topbarLink.textContent.replace('📍', '').trim();
         topbarLink.addEventListener('click', (e) => {
             e.preventDefault();
             const url = window.mapURLForDevice(addr);
-            window.open(url, '_blank', 'noopener'); // ✅ always new tab
+            window.open(url, '_blank', 'noopener');
         });
+    })();
+
+    /* =======================
+       Services content (copy deck)
+    ======================= */
+    const SERVICES_DATA = {
+        cls: {
+            title: 'Community Living Supports (CLS)',
+            paragraph:
+                'CLS helps adults with disabilities and seniors gain confidence and independence at home and in the community. We support ADLs, light home upkeep, transportation, money-management coaching, and social engagement—tailored goals that increase self-sufficiency, well-being, and inclusion.',
+            bullets: ['ADLs', 'Home upkeep', 'Budgeting support', 'Transportation', 'Social skills', 'Community outings']
+        },
+        respite: {
+            title: 'Respite Care',
+            paragraph:
+                'Respite gives family caregivers time to recharge. Our trained staff step in short-term—hourly, overnight, or planned days—to provide personal care, meal prep, medication reminders, companionship, and safety supervision at home.',
+            bullets: ['Hourly/overnight', 'In-home care', 'ADL support', 'Medication reminders', 'Companionship', 'Emergency coverage']
+        },
+        senior: {
+            title: 'Senior Care',
+            paragraph:
+                'We help older adults remain safe, comfortable, and connected at home: personal care, mobility & fall-prevention, medication reminders, meals, transportation, light housekeeping, and daily check-ins—customized and scalable.',
+            bullets: ['Personal care', 'Mobility support', 'Meals', 'Housekeeping', 'Transportation', 'Wellness check-ins']
+        },
+        special: {
+            title: 'Special Needs Care',
+            paragraph:
+                'We partner with families to deliver consistent support for individuals with developmental, physical, or cognitive disabilities—ADLs, sensory-aware routines, behavior supports, social/communication practice, community access, and caregiver coaching.',
+            bullets: ['ADLs', 'Social/communication skills', 'Behavior supports', 'Sensory-aware care', 'Community access', 'Family coaching']
+        },
+        injury: {
+            title: 'Accident & Injury Care',
+            paragraph:
+                'Post-hospital recovery made easier: assistance with bathing and dressing, safe transfers and mobility, wound-care reminders per your clinician’s plan, medication reminders, healing-focused meals, and rides to follow-ups or therapy.',
+            bullets: ['Post-op support', 'Transfers & mobility', 'Medication reminders', 'Nutrition & hydration', 'Appointment transport', 'Care coordination']
+        }
+    };
+
+    /* =======================
+       Services modal
+    ======================= */
+    const servicesList = document.getElementById('servicesList');
+    const modal = document.getElementById('serviceModal');
+    const titleEl = modal?.querySelector('.modal__title');
+    const paraEl = modal?.querySelector('.modal__paragraph');
+    const listEl = modal?.querySelector('.modal__bullets');
+    let lastFocus = null;
+
+    function openService(key) {
+        if (!modal) return;
+        const svc = SERVICES_DATA[key];
+        if (!svc) return;
+        titleEl.textContent = svc.title;
+        paraEl.textContent = svc.paragraph;
+        listEl.innerHTML = svc.bullets.map((b) => `<li>${b}</li>`).join('');
+        lastFocus = document.activeElement;
+        modal.hidden = false;
+        modal.setAttribute('aria-hidden', 'false');
+        modal.querySelector('.modal__close').focus();
+        document.body.style.overflow = 'hidden';
     }
+
+    function closeModal() {
+        if (!modal) return;
+        modal.hidden = true;
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    }
+
+    // Open from cards
+    servicesList?.addEventListener('click', (e) => {
+        const btn = e.target.closest('.services__card');
+        if (!btn) return;
+        openService(btn.getAttribute('data-service'));
+    });
+
+    // Close actions
+    modal?.addEventListener('click', (e) => {
+        if (e.target.matches('[data-close-modal]')) closeModal();
+
+        // Contact inside modal: close first, then smooth scroll
+        const link = e.target.closest('a[href^="#contact"]');
+        if (link) {
+            e.preventDefault();
+            closeModal();
+            const target = document.getElementById('contact');
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.pushState(null, '', '#contact'); // optional: keep hash synced
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
+    });
+
+    /* =======================
+       Quiet "click to read more" hint
+    ======================= */
+    document.querySelectorAll('#servicesList .services__card').forEach((btn) => {
+        if (!btn.querySelector('.services__hint')) {
+            const hint = document.createElement('span');
+            hint.className = 'services__hint';
+            hint.textContent = 'Click to read more';
+            btn.appendChild(hint);
+        }
+    });
 });

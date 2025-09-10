@@ -28,7 +28,7 @@
 
 
 
-    <title>Home Health Care in Midland, Saginaw & Bay City, MI | Assistance To Independence</title>
+    <title>Assistance To Independence Home Health Care | Midland, MI & Surrounding Areas</title>
     <meta name="description" content="Personal, dignified in-home care across Midland, Saginaw, and Bay City. Community living supports, respite, senior care, special needs, and accident/injury care. Call (989) 898-7941." />
     <link rel="canonical" href="https://www.atihomecare.com/" />
 
@@ -106,18 +106,46 @@
     <div class="container services__layout">
         <div class="services__content">
             <h2 class="services__heading">Services Offered</h2>
-            <ul class="services__list">
-                <li class="services__item">Community Living Supports</li>
-                <li class="services__item">Respite Care</li>
-                <li class="services__item">Senior Care</li>
-                <li class="services__item">Special Needs</li>
-                <li class="services__item">Accident &amp; Injury Care</li>
+            <ul class="services__list" id="servicesList">
+                <li>
+                    <button class="services__card" data-service="cls">
+                        <strong>Community Living Supports</strong>
+                        <span class="services__prompt">Build skills for everyday independence.</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="services__card" data-service="respite">
+                        <strong>Respite Care</strong>
+                        <span class="services__prompt">Take a break—your loved one’s routine stays on track.</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="services__card" data-service="senior">
+                        <strong>Senior Care</strong>
+                        <span class="services__prompt">Dignified care to age safely at home.</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="services__card" data-service="special">
+                        <strong>Special Needs</strong>
+                        <span class="services__prompt">Sensory-aware, strengths-based support.</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="services__card" data-service="injury">
+                        <strong>Accident &amp; Injury Care</strong>
+                        <span class="services__prompt">Recover safely at home after surgery or injury.</span>
+                    </button>
+                </li>
+
+                <!-- keep your CTA li as-is -->
                 <li class="services__cta-item">
                     <a class="btn btn--primary services__cta-btn" href="#contact" aria-label="Jump to Contact Us">
                         Contact Us
                     </a>
                 </li>
             </ul>
+
         </div>
 
         <!-- Right-side collage (desktop), stacked on mobile -->
@@ -235,7 +263,19 @@
 
     </div>
 </section>
-<!-- Organization schema -->
+<div class="modal" id="serviceModal" hidden aria-hidden="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
+        <button class="modal__close" type="button" title="Close" aria-label="Close" data-close-modal>×</button>
+        <h3 id="serviceModalTitle" class="modal__title"></h3>
+        <p class="modal__paragraph"></p>
+        <ul class="modal__bullets"></ul>
+        <div class="modal__actions">
+            <a class="btn btn--primary" href="#contact">Contact Us</a>
+            <button class="btn btn--ghost" type="button" data-close-modal>Close</button>
+        </div>
+    </div>
+</div>
 <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -274,7 +314,7 @@
 
 <footer class="site-footer">
     <div class="footer-container">
-        <p>© 2025 Assistance to Independence</p>
+        <p class="copyright">© 2025 Assistance to Independence</p>
         <p class="credit">
             <a href="https://www.codess.dev" target="_blank" rel="noopener">CRAFTED BY CODESS</a>
         </p>
