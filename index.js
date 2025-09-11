@@ -140,8 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cls: {
             title: 'Community Living Supports (CLS)',
             paragraph:
-                'CLS helps adults with disabilities and seniors gain confidence and independence at home and in the community. We support ADLs, light home upkeep, transportation, money-management coaching, and social engagement—tailored goals that increase self-sufficiency, well-being, and inclusion.',
-            bullets: ['ADLs', 'Home upkeep', 'Budgeting support', 'Transportation', 'Social skills', 'Community outings']
+                'CLS helps adults with disabilities and seniors gain confidence and independence at home and in the community. We support ADLs, transportation, money-management coaching, and social engagement—tailored goals that increase self-sufficiency, well-being, and inclusion.',
+            bullets: ['ADLs', 'Budgeting support', 'Transportation', 'Social skills', 'Community outings']
         },
         respite: {
             title: 'Respite Care',
@@ -158,14 +158,20 @@ document.addEventListener('DOMContentLoaded', () => {
         special: {
             title: 'Special Needs Care',
             paragraph:
-                'We partner with families to deliver consistent support for individuals with developmental, physical, or cognitive disabilities—ADLs, sensory-aware routines, behavior supports, social/communication practice, community access, and caregiver coaching.',
-            bullets: ['ADLs', 'Social/communication skills', 'Behavior supports', 'Sensory-aware care', 'Community access', 'Family coaching']
+                'We partner with families to deliver consistent support for individuals with developmental, physical, or cognitive disabilities—ADLs, sensory-aware routines, behavior supports, social/communication practice, and community access',
+            bullets: ['ADLs', 'Social/communication skills', 'Behavior supports', 'Sensory-aware care', 'Community access']
         },
         injury: {
             title: 'Accident & Injury Care',
             paragraph:
                 'Post-hospital recovery made easier: assistance with bathing and dressing, safe transfers and mobility, wound-care reminders per your clinician’s plan, medication reminders, healing-focused meals, and rides to follow-ups or therapy.',
             bullets: ['Post-op support', 'Transfers & mobility', 'Medication reminders', 'Nutrition & hydration', 'Appointment transport', 'Care coordination']
+        },
+        employment: {
+            title: 'Supported Employment Services',
+            paragraph:
+                'Supported employment services help individuals with disabilities or significant barriers to employment find and maintain competitive jobs in integrated work settings alongside non-disabled peers. These services offer individualized support, including job development, training, resume assistance, coaching, and ongoing job coaching to ensure success and reduce the need for support over time.',
+            bullets: ['Job development', 'Resume assistance', 'Skills training', 'Job placement', 'Ongoing job coaching']
         }
     };
 

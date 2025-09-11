@@ -115,7 +115,7 @@ h2, h3 { font-family:"Aboreto", cursive; }
     left: 0;                  /* remove any previous nudge */
     padding-left: clamp(12px, 2vw, 32px); /* gentle inset */
 }
-.hero__img{ position:absolute; inset:0; background:url(./images/ext2.png) center/cover no-repeat; filter:saturate(90%) contrast(95%); z-index:0; }
+.hero__img{ position:absolute; inset:0; background:url(./images/ext3.png) center/cover no-repeat; filter:saturate(90%) contrast(95%); z-index:0; }
 .hero__veil{ position:absolute; inset:0; background:linear-gradient(90deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.72) 46%, rgba(255,255,255,0) 100%); }
 
 .hero__content{ position:relative; text-align:left; color:var(--ink); left:30px; }
@@ -139,132 +139,150 @@ h2, h3 { font-family:"Aboreto", cursive; }
 /* =======================
    Services (Grid + Cards + Modal)
 ======================= */
-.services{ background:#fff; padding:clamp(40px,6vw,96px) 0; }
-.services__layout{ display:grid; gap:clamp(20px,4vw,48px); align-items:start; }
+.services {
+    background:#fff;
+    padding:clamp(40px,6vw,96px) 0;
+}
+.services__layout {
+    display:grid;
+    gap:clamp(20px,4vw,48px);
+    align-items:start;
+}
 @media (min-width:980px){
-    .services__layout{ grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); align-items:center; }
+    .services__layout {
+        grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+        align-items:center;
+    }
 }
 
-.services__heading{
-    font-family:"Aboreto", system-ui; font-weight:400; color:#0f3f0c;
-    letter-spacing:.3px; margin:0 0 .5rem; font-size:clamp(28px,3.6vw,40px);
-    margin-bottom:clamp(14px,2vw,24px); position:relative; display:inline-block;
+.services__heading {
+    font-family:"Aboreto", system-ui;
+    font-weight:400;
+    color:#0f3f0c;
+    letter-spacing:.3px;
+    margin:0 0 .5rem;
+    font-size:clamp(28px,3.6vw,40px);
+    margin-bottom:clamp(14px,2vw,24px);
+    position:relative;
+    display:inline-block;
 }
 @media (prefers-reduced-motion:no-preference){
-    .services__heading::after{
-        content:""; position:absolute; left:0; bottom:-8px; height:2px; width:100%;
-        background:var(--green); transform:scaleX(0); transform-origin:left;
+    .services__heading::after {
+        content:"";
+        position:absolute;
+        left:0;
+        bottom:-8px;
+        height:2px;
+        width:100%;
+        background:var(--green);
+        transform:scaleX(0);
+        transform-origin:left;
         transition:transform .6s var(--ease);
     }
     .services__heading.reveal.in::after{ transform:scaleX(1); }
 }
 
 /* Grid */
-.services__list{
-    list-style:none; margin:0; padding:0;
-    display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+.services__list {
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
     gap:clamp(12px, 2.5vw, 20px);
+    align-items: stretch;
 }
 @media (min-width:900px){
-    .services__list{ grid-template-columns:repeat(2, minmax(260px,1fr)); }
+    .services__list {
+        grid-template-columns:repeat(2, minmax(260px,1fr));
+    }
+}
+.services__list li {
+    display:flex;
+    position:relative;
 }
 
 /* Cards */
-.services__list li{ position:relative; }
-.services__card{
-    width:100%; text-align:left; background:#fafafa; border:1px solid rgba(0,0,0,.06);
-    border-radius:14px; padding:.9rem 1rem .9rem calc(1rem + 20px);
-    font:inherit; color:inherit; cursor:pointer; display:flex; flex-direction:column; gap:.35rem;
+.services__card {
+    width:100%;
+    text-align:left;
+    background:#fafafa;
+    border:1px solid rgba(0,0,0,.06);
+    border-radius:14px;
+    padding:.9rem 1rem .9rem calc(1rem + 20px);
+    font:inherit;
+    color:inherit;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    gap:.35rem;
     box-shadow:0 6px 14px rgba(0,0,0,.04);
+    flex:1;
 }
 .services__card:focus-visible{ outline:3px solid rgba(26,121,20,.35); outline-offset:3px; }
 .services__card strong{ font-family:"Aboreto", system-ui; font-weight:600; color:#0f3f0c; }
 .services__prompt{ font-size:.95rem; color:#1b1b1bb3; }
 .services__hint{ display:block; margin-top:.25rem; font-size:.92rem; color:#0f3f0c99; letter-spacing:.1px; }
 
-/* Green dot for each li */
-.services__list li:not(.services__cta-item)::before{
-    content:""; position:absolute; left:.75rem; top:1.05rem;
-    width:10px; height:10px; border-radius:50%; background:var(--green);
+/* Green dot */
+.services__list li:not(.services__cta-item)::before {
+    content:"";
+    position:absolute;
+    left:.75rem;
+    top:1.05rem;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:var(--green);
     box-shadow:0 0 0 4px rgba(26,121,20,.14);
 }
-.services__list li:hover::before{
-    box-shadow:0 0 0 6px rgba(26,121,20,.18); transition:box-shadow .25s var(--ease);
+.services__list li:hover::before {
+    box-shadow:0 0 0 6px rgba(26,121,20,.18);
+    transition:box-shadow .25s var(--ease);
 }
 
+/* Contact Us CTA */
 .services__cta-item {
-    grid-column: auto;            /* let it sit in its normal grid cell */
-    display: flex;
-    justify-content: center;      /* center the button horizontally */
-    align-items: center;
-
+    grid-column: 1 / -1;
+    display:flex;
+    justify-content:center;
+    margin-top:1.5rem;
 }
-
-.services__cta-item::before { display: none; }
-
+.services__cta-item::before { display:none; }
 .services__cta-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.25rem 2.5rem;
-    font-size: 1.2rem;
-    border-radius: 14px;
-    box-shadow: 0 8px 18px rgba(0,0,0,.14);
-    background: var(--green);
-    color: #fff;
-    font-weight: 600;
-    width: 100%;                  /* make it fill the grid cell */
-    max-width: 300px;
-    isolation: isolate;
-    z-index: 0;
-}
-
-
-
-@media (min-width:900px){ .services__cta-item{ grid-column:2; justify-self:start; align-items:center; } }
-@media (max-width:899px){
-    .services__cta-item{ justify-self:center; }
-    .services__cta-btn{ max-inline-size:clamp(220px,70vw,340px); width:auto; }
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:240px;
+    max-width:320px;
+    padding:1.25rem 2.5rem;
+    font-size:1.1rem;
+    border-radius:14px;
+    box-shadow:0 8px 18px rgba(0,0,0,.14);
+    background:var(--green);
+    color:#fff;
+    font-weight:600;
+    text-align:center;
 }
 
 /* Services image */
 .services__media{ margin:0; }
 .services__media img{
-    width:100%; height:auto; display:block; border-radius:18px;
-    box-shadow:0 16px 40px rgba(0,0,0,.12); object-fit:cover; aspect-ratio:1/1;
-}
-/* ---- Services CTA in column 2, centered nicely ---- */
-@media (min-width:900px){
-    .services__cta-item {
-        grid-column: 2;              /* stay in right column */
-        display: flex;
-        justify-content: center;     /* center horizontally */
-        align-items: center;         /* center vertically */
-        width: 100%;                 /* force it to take full column width */
-    }
-
-    .services__cta-btn {
-        margin: 0 auto;              /* centers inside parent */
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 240px;
-        max-width: 320px;
-        padding: 1.25rem 2.5rem;
-        font-size: 1.1rem;
-        border-radius: 14px;
-        box-shadow: 0 8px 18px rgba(0,0,0,.14);
-        background: var(--green);
-        color: #fff;
-        font-weight: 600;
-
-    }
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:18px;
+    box-shadow:0 16px 40px rgba(0,0,0,.12);
+    object-fit:cover;
+    aspect-ratio:1/1;
 }
 
 /* Services reveal */
 @media (prefers-reduced-motion:no-preference){
     .reveal{
-        opacity:0; transform:translateY(10px) scale(.98); filter:blur(2px);
+        opacity:0;
+        transform:translateY(10px) scale(.98);
+        filter:blur(2px);
         will-change:opacity, transform, filter;
         transition:opacity .6s var(--ease), transform .6s var(--ease), filter .6s var(--ease);
         transition-delay:calc(var(--stagger, 0) * 60ms);
@@ -273,7 +291,6 @@ h2, h3 { font-family:"Aboreto", cursive; }
     .services__media.reveal img{ transform:scale(1.03); transition:transform 1.1s var(--ease); }
     .services__media.reveal.in img{ transform:scale(1); }
 }
-
 /* ---------- Modal ---------- */
 .modal[hidden]{ display:none; }
 .modal{ position:fixed; inset:0; z-index:1000; display:grid; place-items:center; }
