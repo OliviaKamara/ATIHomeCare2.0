@@ -140,8 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cls: {
             title: 'Community Living Supports (CLS)',
             paragraph:
-                'CLS helps adults with disabilities and seniors gain confidence and independence at home and in the community. We support ADLs, transportation, money-management coaching, and social engagement—tailored goals that increase self-sufficiency, well-being, and inclusion.',
-            bullets: ['ADLs', 'Budgeting support', 'Transportation', 'Social skills', 'Community outings']
+                'CLS helps people of all ages with disabilities and seniors gain confidence and independence at home and in the community. We support ADLs, transportation, money-management coaching, and social engagement—tailored goals that increase self-sufficiency, well-being, and inclusion.',
+            bullets: ['ADLs', 'Budgeting support', 'Transportation', 'Social skills', 'Community outings', 'Special Needs']
         },
         respite: {
             title: 'Respite Care',
@@ -154,12 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
             paragraph:
                 'We help older adults remain safe, comfortable, and connected at home: personal care, mobility & fall-prevention, medication reminders, meals, transportation, light housekeeping, and daily check-ins—customized and scalable.',
             bullets: ['Personal care', 'Mobility support', 'Meals', 'Housekeeping', 'Transportation', 'Wellness check-ins']
-        },
-        special: {
-            title: 'Special Needs Care',
-            paragraph:
-                'We partner with families to deliver consistent support for individuals with developmental, physical, or cognitive disabilities—ADLs, sensory-aware routines, behavior supports, social/communication practice, and community access',
-            bullets: ['ADLs', 'Social/communication skills', 'Behavior supports', 'Sensory-aware care', 'Community access']
         },
         injury: {
             title: 'Accident & Injury Care',
