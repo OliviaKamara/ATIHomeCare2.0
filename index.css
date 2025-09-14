@@ -451,6 +451,8 @@ h2, h3 { font-family:"Aboreto", cursive; }
 
 .about__hero, .about__mosaic img{ object-fit:cover; object-position:center; display:block; }
 
+}
+
 /* About entrance */
 @media (prefers-reduced-motion:no-preference){
     .about__copy, .about__media{ opacity:0; transform:translateY(8px); animation:about-fade .7s var(--ease) .05s both; }
