@@ -260,7 +260,31 @@ h2, h3 { font-family:"Aboreto", cursive; }
         text-align: center;
     }
 
+}/* === Mobile: stack service cards in one column === */
+@media (max-width: 900px){
+    /* 1 column grid, full-width items */
+    .services__list{
+        grid-template-columns: 1fr !important;
+        gap: 14px; /* a touch tighter on mobile */
+    }
+
+    /* cards fill the row */
+    .services__list li,
+    .services__card{
+        width: 100%;
+    }
+
+    /* CTA behaves like a normal list item at the end */
+    .services__cta-item{
+        grid-column: auto !important;
+        justify-self: stretch;
+    }
+    .services__cta-btn{
+        width: 100%;
+        max-inline-size: none;
+    }
 }
+
 
 /* Services reveal */
 @media (prefers-reduced-motion:no-preference){
